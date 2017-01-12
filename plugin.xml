@@ -12,7 +12,7 @@
     <issue>https://github.com/Bossierp/com.mrboss.m11sdk/issues</issue>
 
     <js-module src="www/m11sdk.js" name="m11sdk">
-        <merges target="mrboss.m11sdk" />
+        <merges target="cordova.m11sdk" />
     </js-module>
 
     <!-- android -->

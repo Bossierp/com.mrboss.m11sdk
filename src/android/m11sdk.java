@@ -80,6 +80,9 @@ public class m11sdk extends CordovaPlugin {
     } catch (Exception e) {
       callbackContext.error(e.getMessage());
       return false;
+    } catch (Throwable e1) {
+      callbackContext.error(e1.getMessage());
+      return false;
     }
     callbackContext.error("No This Method");
     return false;
@@ -87,7 +90,7 @@ public class m11sdk extends CordovaPlugin {
 
   public void init() throws Throwable {
     if (!isinit) {
-      SDK.init(this);
+      SDK.init(this.cordova.getActivity());
 
       // init compenent
       mCashDrawer = CashDrawer.newInstance();
