@@ -34,19 +34,16 @@ module.exports = {
      * @param {Function} completeCallback   The callback that is called when user clicks on a button.
      * @param {Function} completeCallback   The callback that is called when user clicks on a button.
      */
-    UsbPrint: function(printstr, successCallback, errorCallback) {
-        exec(successCallback, errorCallback, 'jsposprinter', 'UsbPrint', [printstr, successCallback, errorCallback]);
+    Print: function(printstr, successCallback, errorCallback) {
+        exec(successCallback, errorCallback, 'm11sdk', 'Print', [printstr, successCallback, errorCallback]);
     },
-    TestUsbPrint: function(successCallback, errorCallback) {
-        exec(successCallback, errorCallback, 'jsposprinter', 'TestUsbPrint', [successCallback, errorCallback]);
+    CustomerDisplay: function(showtext, successCallback, errorCallback) {
+        exec(successCallback, errorCallback, 'm11sdk', 'CustomerDisplay', [showtext, successCallback, errorCallback]);
     },
-    TcpPrint: function(printstr, ip, port, encode, timeout, successCallback, errorCallback) {
-        exec(successCallback, errorCallback, 'jsposprinter', 'TcpPrint', [printstr, ip, port, encode, timeout, successCallback, errorCallback]);
+    OpenMoneyBox: function(successCallback, errorCallback) {
+        exec(successCallback, errorCallback, 'm11sdk', 'OpenMoneyBox', [successCallback, errorCallback]);
     },
-    TestTcpPrint: function(ip, port, successCallback, errorCallback) {
-        exec(successCallback, errorCallback, 'jsposprinter', 'TestTcpPrint', [ip, port, successCallback, errorCallback]);
-    },
-    BlueToothPrint: function(printtext, startname, encode, successCallback, errorCallback) {
-        exec(successCallback, errorCallback, 'jsposprinter', 'BlueToothPrint', [printtext, startname, encode, successCallback, errorCallback]);
+    TestPrint: function(successCallback, errorCallback) {
+        exec(successCallback, errorCallback, 'm11sdk', 'TestPrint', [successCallback, errorCallback]);
     }
 };
