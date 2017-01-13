@@ -101,27 +101,34 @@ public class m11sdk extends CordovaPlugin {
 
   public void Print(String printtext) throws Throwable {
     Printer prt = null;
+    printtext = printtext + "\n";
     try {
       byte[] data = printtext.getBytes("GBK");
 
       prt = Printer.newInstance();
+      if(!prt.ready()){
+      }
       prt.getOutputStream().write(data);
     } finally {
-      if (prt != null) {
+      if (prt != null) {4
         prt.close();
       }
     }
   }
 
   public void CustomerDisplay(String showtext) throws Throwable {
-    String[] lines = showtext.split("|||");
+    String[] lines = showtext.split("\\|\\|\\|");
 
     CustomerDisplay dsp = null;
 
     try {
+      int count = lines.length;
+      if (count > 4) {
+        count = 4;
+      }
       dsp = CustomerDisplay.newInstance();
       dsp.clear();
-      for (int i = 0; i < 4; i++) {
+      for (int i = 0; i < count; i++) {
         dsp.setCursorPos(i, 0);
         dsp.write(lines[i]);
       }
