@@ -110,7 +110,7 @@ public class m11sdk extends CordovaPlugin {
       }
       prt.getOutputStream().write(data);
     } finally {
-      if (prt != null) {4
+      if (prt != null) {
         prt.close();
       }
     }
