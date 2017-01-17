@@ -26,7 +26,7 @@
         <source-file src="src/android/posindev.jar" target-dir="libs" />
 
         <source-file src="src/android/m11sdk.java" target-dir="src/com/mrboss/m11sdk" />
-
+        <source-file src="src/android/LedCustomerDisplay.java" target-dir="src/com/mrboss/m11sdk" />
     </platform>
 
 </plugin>
