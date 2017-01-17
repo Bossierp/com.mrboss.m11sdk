@@ -21,6 +21,8 @@ package com.mrboss.m11sdk;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.FileInputStream;
+import java.util.Properties;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,6 +54,8 @@ public class m11sdk extends CordovaPlugin {
   private static final String LOG_TAG = "m11sdkPlugin";
   static CashDrawer mCashDrawer = null;
   static boolean isinit = false;
+  static String mCustDspType = null;
+  static String mLedPort = null;
 
   @Override
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -70,6 +74,11 @@ public class m11sdk extends CordovaPlugin {
         return true;
       } else if ("OpenMoneyBox".equals(action)) {
         OpenMoneyBox();
+        callbackContext.success(200);
+        return true;
+      } else if ("LedCustomerDisplay".equals(action)) {
+        String showtext = args.getString(0);
+        LedCustomerDisplay(showtext);
         callbackContext.success(200);
         return true;
       } else if ("TestPrint".equals(action)) {
@@ -106,7 +115,7 @@ public class m11sdk extends CordovaPlugin {
       byte[] data = printtext.getBytes("GBK");
 
       prt = Printer.newInstance();
-      if(!prt.ready()){
+      if (!prt.ready()) {
       }
       prt.getOutputStream().write(data);
     } finally {
@@ -138,9 +147,47 @@ public class m11sdk extends CordovaPlugin {
     }
   }
 
+  public void LedCustomerDisplay(String showtext) throws Throwable {
+    //String[] lines = showtext.split("\\|\\|\\|");
+
+    LedCustomerDisplay cd = null;
+    try {
+      cd = new LedCustomerDisplay(mLedPort);
+      cd.displayPayment(showtext);
+    } finally {
+      if (cd != null) {
+        cd.close();
+      }
+    }
+  }
+
   public void OpenMoneyBox() throws Throwable {
     mCashDrawer.kickOutPin2(100);
     //mCashDrawer.kickOutPin5(100);
+  }
+
+  private Properties loadSystemProperties() {
+    Properties p = new Properties();
+    FileInputStream is = null;
+
+    try {
+      is = new FileInputStream("/system/build.prop");
+      p.load(is);
+      mCustDspType = p.getProperty("ro.customerdisplay.type", "lcd");
+      mLedPort = p.getProperty("ro.customerdisplay.port", "/dev/ttyACM0");
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      if (is != null) {
+        try {
+          is.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+
+    return p;
   }
 
   private void Alert(String msg) {
