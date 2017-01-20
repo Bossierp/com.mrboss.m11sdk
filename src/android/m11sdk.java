@@ -105,6 +105,8 @@ public class m11sdk extends CordovaPlugin {
       // init compenent
       mCashDrawer = CashDrawer.newInstance();
 
+      loadSystemProperties();
+      
       isinit = true;
     }
   }
