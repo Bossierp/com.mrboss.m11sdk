@@ -43,8 +43,8 @@ module.exports = {
     OpenMoneyBox: function(successCallback, errorCallback) {
         exec(successCallback, errorCallback, 'm11sdk', 'OpenMoneyBox', [successCallback, errorCallback]);
     },
-    LedCustomerDisplay: function(showtext, successCallback, errorCallback) {
-        exec(successCallback, errorCallback, 'm11sdk', 'LedCustomerDisplay', [showtext, successCallback, errorCallback]);
+    LedCustomerDisplay: function(showtext, showtype, successCallback, errorCallback) {
+        exec(successCallback, errorCallback, 'm11sdk', 'LedCustomerDisplay', [showtext, showtype, successCallback, errorCallback]);
     },
     TestPrint: function(successCallback, errorCallback) {
         exec(successCallback, errorCallback, 'm11sdk', 'TestPrint', [successCallback, errorCallback]);

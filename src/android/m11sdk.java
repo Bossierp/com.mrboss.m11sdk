@@ -78,7 +78,8 @@ public class m11sdk extends CordovaPlugin {
         return true;
       } else if ("LedCustomerDisplay".equals(action)) {
         String showtext = args.getString(0);
-        LedCustomerDisplay(showtext);
+        String showtype = args.getString(1);
+        LedCustomerDisplay(showtext, showtype);
         callbackContext.success(200);
         return true;
       } else if ("TestPrint".equals(action)) {
@@ -147,13 +148,28 @@ public class m11sdk extends CordovaPlugin {
     }
   }
 
-  public void LedCustomerDisplay(String showtext) throws Throwable {
-    //String[] lines = showtext.split("\\|\\|\\|");
-
+  public void LedCustomerDisplay(String showtext, String showtype) throws Throwable {
     LedCustomerDisplay cd = null;
     try {
       cd = new LedCustomerDisplay(mLedPort);
-      cd.displayPayment(showtext);
+      if("Clear".equals(showtype)){
+        cd.clear();
+      }
+      else if("Price".equals(showtype)){
+        cd.displayPrice(showtext);
+      }
+      else if("Total".equals(showtype)){
+        cd.displayTotal(showtext);
+      }
+      else if("Payment".equals(showtype)){
+        cd.displayPayment(showtext);
+      }
+      else if("Change".equals(showtype)){
+        cd.displayChange(showtext);
+      }
+      else{
+        cd.clear();
+      }
     } finally {
       if (cd != null) {
         cd.close();
